@@ -6,14 +6,14 @@ import uuid
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
 channel = connection.channel()
 
-# Declare a durable queue (will survive server restarts)
+# Declare a durable queue (it will survive server restarts)
 channel.queue_declare(queue='task_queue', durable=True)
 
-# Prepare a sample message – "data" contains the prompt for model inference
+# Prepare a sample message
 message = {
     "task_id": str(uuid.uuid4()),
-    "data": "Hello world. Please generate a short story about a brave knight.",
-    "params": {"model": "gpt2", "options": {}}
+    "data": "Przykładowe dane wejściowe",
+    "params": {"model": "bielik", "options": {}}
 }
 message_body = json.dumps(message)
 
@@ -23,7 +23,7 @@ channel.basic_publish(
     routing_key='task_queue',
     body=message_body,
     properties=pika.BasicProperties(
-        delivery_mode=2  # persistent message
+        delivery_mode=pika.DeliveryMode.Persistent  # persistent message
     )
 )
 
