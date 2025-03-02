@@ -3,7 +3,6 @@
 #1.setup.sh
 #2.W folderze docker wpisac: docker-compose up --build
 #Powinien zaciągnąć automatycznie wszystkie potrzebne paczki.
-#Pliki:
-#Publisher.py - publikuje zadanie
-#Worker.py - wykonuje zadanie
-#Result_consumer.py - wyswietla wyniki w konsoli.
+#Uruchamianie worker.py z argumentem gpt2 lub qwen, ładuje odpowiedni model.
+#ALternatywnie można wyeksportować export MODEL_NAME=gpt2/qwen
+
