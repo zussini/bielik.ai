@@ -1,8 +1,11 @@
-from vllm import LLM, SamplingParams
+from vllm import LLMEngine
+from vllm.executor import default_executor_class
 
-engine = LLM("gpt2", dtype="auto")
+# Inicjalizacja engine z modelem 'gpt2'
+engine = LLMEngine("gpt2", executor_class=default_executor_class, log_stats=False)
+
+# Przykładowe użycie
 prompt = "Hello world"
-sampling_params = SamplingParams(n=1, temperature=1.0)
-result = engine.generate(prompt, sampling_params)
+result = engine.generate(prompt, max_tokens=50)
 print(result)
 
