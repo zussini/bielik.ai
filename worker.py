@@ -3,14 +3,15 @@ import time
 import json
 import sys
 import os
+from dotenv import load_dotenv
 
-# Wybór modelu: można przekazać jako argument wiersza poleceń lub ustawić zmienną środowiskową MODEL_NAME.
+load_dotenv()
+
+# Pobieramy adres IP z zmiennej środowiskowej, domyślnie 'localhost'
+rabbitmq_host = os.getenv("RABBITMQ_HOST", "localhost")
+rabbitmq_port = os.getenv("RABBITMQ_PORT", 5672)
+model_choice = os.getenv('MODEL_NAME', 'qwen')
 # Domyślnie ustawiamy na "qwen".
-if len(sys.argv) > 1:
-    model_choice = sys.argv[1].lower()
-else:
-    model_choice = os.getenv("MODEL_NAME", "qwen").lower()
-
 if model_choice == "qwen":
     from models import qwen as model_module
     print("Wybrano model Qwen.")
@@ -47,7 +48,7 @@ def callback(ch, method, properties, body):
         print(f"Błąd przy przetwarzaniu zadania {parts[0] if len(parts) > 0 else 'unknown'}: {e}")
         ch.basic_nack(delivery_tag=method.delivery_tag, requeue=True)
 
-connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+connection = pika.BlockingConnection(pika.ConnectionParameters(host=rabbitmq_host,port=5672))
 channel = connection.channel()
 
 channel.queue_declare(queue='task_queue', durable=True)

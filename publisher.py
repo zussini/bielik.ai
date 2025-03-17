@@ -1,7 +1,14 @@
 import pika
 import uuid
+import os
+from dotenv import load_dotenv
 
-connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+load_dotenv()
+
+# Pobieramy adres IP z zmiennej środowiskowej, domyślnie 'localhost'
+rabbitmq_host = os.getenv("RABBITMQ_HOST", "localhost")
+rabbitmq_port = os.getenv("RABBITMQ_PORT", 5672)
+connection = pika.BlockingConnection(pika.ConnectionParameters(host=rabbitmq_host,port=rabbitmq_port))
 channel = connection.channel()
 
 channel.queue_declare(queue='task_queue', durable=True)
