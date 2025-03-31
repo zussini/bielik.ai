@@ -18,6 +18,10 @@ Jakby pierwsza opcja nie zadziałała, to następnie przejść do opcji drugiej 
 zainstalować condę według instrukcji i wtedy spróbować uruchomic dockera a następnie publisher, result_consumer i worker 
 w osobnych termilach. Można zalogować się do rabbit-mq i zobaczyć czy są jakieś kolejki.
 Ważne, aby się upewnić czy cuda działa po instalacji, ja musiałem przeinstalowywać cuda 12.1 i pytorch.
+
+Jeszzcze brakuje  automatycznej konfiguracji pracy w sieci. Trzeba będzie to jakoś dodać.
+Setup.sh, póki co chyba jest niepotrzebny, trzeba będzie się zastanowić nad może jedną wersją instalacji, ale 
+taką która działa w większości przypadków :).
 #WORKS over network:) 
 
 ########################################################################################################################
