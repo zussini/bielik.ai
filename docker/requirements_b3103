@@ -1,6 +1,6 @@
 pika==1.2.1
 vllm==0.7.2
-torch==2.5.1
-transformers
+torch==2.0.1
+transformers==4.50.0.dev0
 accelerate==1.0.1
 qwen_vl_utils
